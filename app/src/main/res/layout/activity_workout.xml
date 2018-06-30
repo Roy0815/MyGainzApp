@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".WorkoutActivity"
     tools:layout_editor_absoluteY="81dp">
+    
 
     <ScrollView
         android:id="@+id/scrollView2"

@@ -69,4 +69,5 @@ public class WorkoutSync extends AsyncTask<String, Integer, String> {
         }
         chat.setText(chats);
     }
+
 }

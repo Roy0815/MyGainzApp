@@ -32,4 +32,5 @@ public class WorkoutActivity extends Activity {
         workoutsync = new WorkoutSync(textview);
         workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=5630742793027584");
     }
+
 }

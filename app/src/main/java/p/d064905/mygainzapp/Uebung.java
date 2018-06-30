@@ -76,4 +76,5 @@ public class Uebung {
     public void setSteigerung(int steigerung) {
         this.steigerung = steigerung;
     }
+
 }
