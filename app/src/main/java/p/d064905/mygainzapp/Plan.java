@@ -11,5 +11,9 @@ public class Plan {
             Planid = aPlanid;
             PlanName= aPlanName;
     }
+    public String toString(){
+        return Planid+" "+PlanName;
+    }
 }
+
 

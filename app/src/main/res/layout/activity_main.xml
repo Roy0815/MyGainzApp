@@ -10,7 +10,9 @@
     <ListView
         android:id="@+id/AW"
         android:layout_width="291dp"
-        android:layout_height="211dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="40dp" />
+        android:layout_height="225dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
