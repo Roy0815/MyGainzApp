@@ -1,7 +1,11 @@
 package p.d064905.mygainzapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,6 +35,31 @@ public class WorkoutActivity extends Activity {
     public void aktualisieren() {
         workoutsync = new WorkoutSync(textview);
         workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=5630742793027584");
+    }
+
+    //PopUp Menü in Action Bar reinladen als 3 Menüpunkte oben rechts
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popupmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Wir prüfen, ob Menü-Element mit der ID "action_daten_aktualisieren"
+        // ausgewählt wurde und geben eine Meldung aus
+        int id = item.getItemId();
+        if (id == R.id.overview) {
+            changescreen();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void changescreen() {
+        Intent intent0 = new Intent(this, MainActivity.class);
+        startActivity(intent0);
     }
 
 }
