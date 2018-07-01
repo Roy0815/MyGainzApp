@@ -2,6 +2,8 @@ package p.d064905.mygainzapp;
 
 
 import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -14,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Madeya on 11.01.2018.
@@ -21,15 +24,23 @@ import java.util.ArrayList;
 
 public class PlanSync extends AsyncTask<String,Integer,String> {
 
-    TextView Ausgabe;
+    TextView AusgabeA;
+    ListView AusgabeD;
     String Name;
     Boolean Active;
+    ArrayAdapter<Plan> mAdapter;
+    ArrayList<Plan> mArray;
 
-    public PlanSync(TextView v){Ausgabe= v;}
+    public PlanSync(TextView v, ListView w){
+        AusgabeA= v;
+        AusgabeD=w;
+
+    }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        mArray = new ArrayList<>();
         try {
             JSONArray result = new JSONArray(s);
             JSONObject message;
@@ -39,9 +50,16 @@ public class PlanSync extends AsyncTask<String,Integer,String> {
                 Name = message.getString("name");
                 Active = message.getBoolean("active");
                 if (Active=true){
-                    Ausgabe.setText(Name);
+                    AusgabeA.setText(Name);
+                }
+                if (Active=false){
+                    mArray.add(new Plan(Name,Active));
                 }
             }
+           //Hier muss noch was angepasst werden   mAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mArray);
+            AusgabeD.setAdapter(mAdapter);
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

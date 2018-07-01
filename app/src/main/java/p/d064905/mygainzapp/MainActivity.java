@@ -24,6 +24,7 @@ import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
     TextView wActive;
+    ListView wDeactivated;
     PlanSync Ps;
 
     @Override
@@ -31,14 +32,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setContentView(R.layout.activity_main);
         wActive = findViewById(R.id.AW);
+        wDeactivated= findViewById(R.id.DW);
         onRefresh();
-
     }
 
     public void onRefresh() {
-        Ps = new PlanSync(wActive);
+        //Aufruf der DB für die Aktiven und Deaktivierten Pläne
+        Ps = new PlanSync(wActive,wDeactivated);
         Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");
     }
 
