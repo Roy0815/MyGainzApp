@@ -8,15 +8,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.Toolbar;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
@@ -24,9 +24,8 @@ import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
     ListView wActive;
-    ArrayList<Plan> mArray;
-    ArrayAdapter<Plan> mAdapter;
-    PlanSync Ps;
+    ArrayList<Plan>  mArray;
+    ArrayAdapter<Plan>  mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +34,23 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         wActive = findViewById(R.id.AW);
         mArray = new ArrayList<>();
-        onRefresh();
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArray);
+        mAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mArray);
         wActive.setAdapter(mAdapter);
         wActive.setOnItemClickListener(this);
+
     }
 
-    public void onRefresh() {
-        Ps = new PlanSync(mArray);
-        Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");
-    }
-
-
+    //PopUp Menü in Action Bar reinladen als 3 Menüpunkte oben rechts
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //onclick Workout
-    }
-
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.popupmenu, menu);
         return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        //onclick Workout
     }
 
     public void changescreen(View aView) {

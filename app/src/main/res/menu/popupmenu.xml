@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/persongroup">
+        <item
+            android:id="@+id/person"
+            android:checkable="false"
+            android:title="Max Muster" />
+        <item
+            android:id="@+id/email"
+            android:title="max.muster@online.de" />
+    </group>
+    <group android:id="@+id/eintraegegroup" >
+        <item
+            android:id="@+id/calender"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Kalender" />
+        <item
+            android:id="@+id/overview"
+            android:title="Übersicht" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Einstellungen" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:title="Abmelden" />
+    </group>
+</menu>
