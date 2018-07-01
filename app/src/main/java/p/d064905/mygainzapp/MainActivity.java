@@ -34,11 +34,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         wActive = findViewById(R.id.AW);
         mArray = new ArrayList<>();
-        mArray.add(new Plan (1234,"Wurstworkout"));
-
+        onRefresh();
         mAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mArray);
         wActive.setAdapter(mAdapter);
         wActive.setOnItemClickListener(this);
+        onRefresh();
 
     }
 
@@ -49,6 +49,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         inflater.inflate(R.menu.popupmenu, menu);
         return true;
     }
+
 
 
     @Override

@@ -30,7 +30,6 @@ public class PlanSync extends AsyncTask<String,Integer,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        String messages = "";
         try {
             JSONArray result = new JSONArray(s);
             JSONObject message;
