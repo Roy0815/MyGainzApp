@@ -21,11 +21,11 @@ import java.util.ArrayList;
 
 public class PlanSync extends AsyncTask<String,Integer,String> {
 
-    ArrayList<Plan> planarray;
+    TextView Ausgabe;
     String Name;
     Boolean Active;
 
-    public PlanSync(ArrayList v){planarray = v;}
+    public PlanSync(TextView v){Ausgabe= v;}
 
     @Override
     protected void onPostExecute(String s) {
@@ -38,7 +38,9 @@ public class PlanSync extends AsyncTask<String,Integer,String> {
 
                 Name = message.getString("name");
                 Active = message.getBoolean("active");
-                planarray.add(new Plan(Name,Active));
+                if (Active=true){
+                    Ausgabe.setText(Name);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
