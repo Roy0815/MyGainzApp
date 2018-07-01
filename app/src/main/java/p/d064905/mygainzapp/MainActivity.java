@@ -38,7 +38,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArray);
         wActive.setAdapter(mAdapter);
         wActive.setOnItemClickListener(this);
-
     }
 
     public void onRefresh() {
