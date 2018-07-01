@@ -18,14 +18,14 @@ public class Main2Activity extends AppCompatActivity {
         ScrollView sv = findViewById(R.id.scrollView2);
 
         LayoutInflater vi = getLayoutInflater();
-        View v = vi.inflate(R.layout.activity_main2, null);
+        View v = vi.inflate(R.layout.layout_template, null);
 
         // fill in any details dynamically here
-        TextView textView = (TextView) v.findViewById(R.id.a_text_view);
-        textView.setText("your text");
+        TextView textView = (TextView) v.findViewById(R.id.textview);
+        textView.setText("PENIS");
 
         // insert into main view
-        ViewGroup insertPoint = (ViewGroup) ScrollView;
+        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.scrollView2);
         insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
     }
 }
