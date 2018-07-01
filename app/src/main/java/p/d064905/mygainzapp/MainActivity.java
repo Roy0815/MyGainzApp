@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toolbar;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
@@ -22,6 +24,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     ListView wActive;
     ArrayList<Plan>  mArray;
     ArrayAdapter<Plan>  mAdapter;
+    PlanSync Ps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +33,17 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         wActive = findViewById(R.id.AW);
         mArray = new ArrayList<>();
-        mArray.add(new Plan (1234,"Wurstworkout"));
 
         mAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mArray);
         wActive.setAdapter(mAdapter);
         wActive.setOnItemClickListener(this);
-
-
+        onRefresh();
 
     }
 
+    public void onRefresh() {
+        Ps = new PlanSync(mArray);
+        Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");}
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
