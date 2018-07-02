@@ -2,17 +2,17 @@ package p.d064905.mygainzapp;
 
 public class Plan {
 
-        int Planid;
         Boolean PlanActive;
         String PlanName;
 
-        public Plan (int aPlanid, String aPlanName){
+        public Plan (String aPlanName, Boolean aPlanActive){
 
-            Planid = aPlanid;
+
             PlanName= aPlanName;
+            PlanActive= aPlanActive;
     }
     public String toString(){
-        return Planid+" "+PlanName;
+        return PlanName;
     }
 }
 
