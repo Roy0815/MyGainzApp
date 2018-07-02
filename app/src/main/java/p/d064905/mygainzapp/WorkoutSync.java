@@ -12,13 +12,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class WorkoutSync extends AsyncTask<String, Integer, String> {
 
-    TextView chat;
+    WorkoutActivity WA;
 
-    public WorkoutSync(TextView t) {
-        chat = t;
+    public WorkoutSync(WorkoutActivity wa) {
+        WA = wa;
     }
 
     @Override
@@ -45,29 +46,21 @@ public class WorkoutSync extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         String chats = "";
+        Uebung u = null;
+        ArrayList<Uebung> ALu = new ArrayList<>();
         try {
             JSONArray result = new JSONArray(s);
             JSONObject workout;
-            System.out.println("JSON" + result);
             for (int i = 0; i < result.length(); i++) {
                 workout = result.getJSONObject(i);
 
-                //alle Variablen testweise auslegen
-                chats = chats + "Name " + workout.getString("name") + "\n\n";
-                chats = chats + "Gewicht " + workout.getString("weight") + "\n\n";
-                chats = chats + "Pause " + workout.getString("break") + "\n\n";
-                chats = chats + "Sets " + workout.getString("sets") + "\n\n";
-                chats = chats + "Wiederholungen " + workout.getString("repititions") + "\n\n";
-                chats = chats + "Steigerung " + workout.getString("increase") + "\n\n";
-
-                // aus eingelesenen Daten eine lokale Übung erstellen
-                new Uebung(workout.getInt("id"), workout.getString("name"), workout.getInt("weight"), workout.getInt("repititions"), workout.getInt("sets"), workout.getInt("break"), workout.getInt("increase"));
+                u = new Uebung(workout.getInt("id"), workout.getString("name"), Integer.parseInt(workout.getString("weight")), Integer.parseInt(workout.getString("repititions")), Integer.parseInt(workout.getString("sets")), Integer.parseInt(workout.getString("break")), Integer.parseInt(workout.getString("increase")));
+                ALu.add(u);
             }
         } catch (JSONException e) {
-            chat.setText("kein bisheriger Chatverlauf");
             e.printStackTrace();
         }
-        chat.setText(chats);
+        WA.fillList(ALu);
     }
 
 }
