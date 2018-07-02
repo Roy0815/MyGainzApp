@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/listItemTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/listItemButton1"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listItemTextView"
+        android:background="@drawable/roundedbuttonred"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/listItemButton2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listItemTextView"
+        android:layout_marginStart="50dp"
+        android:background="@drawable/roundedbuttonred"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/listItemButton3"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listItemTextView"
+        android:layout_marginStart="100dp"
+        android:background="@drawable/roundedbuttonred"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/listItemButton4"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listItemTextView"
+        android:layout_marginStart="150dp"
+        android:background="@drawable/roundedbuttonred"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/listItemButton5"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listItemTextView"
+        android:layout_marginStart="200dp"
+        android:background="@drawable/roundedbuttonred"
+        android:text="5" />
+
+    <TextView
+        android:id="@+id/listItemTextViewWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+</RelativeLayout>
+
