@@ -12,11 +12,11 @@
         android:id="@+id/ListExercise"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/workoutabbrechenButton"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="17dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="26dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"
         app:layout_constraintBottom_toTopOf="@+id/workoutabbrechenButton"
@@ -39,10 +39,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
+        android:onClick="changescreen"
         android:text="Workout abbrechen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/workoutbeendenButton"
@@ -53,5 +53,12 @@
         android:text="Workout beenden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
 </android.support.constraint.ConstraintLayout>

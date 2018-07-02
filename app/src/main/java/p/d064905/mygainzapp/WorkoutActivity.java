@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,19 +39,66 @@ public class WorkoutActivity extends Activity {
     Button endworkoutbutton;
     ListView lv;
     WorkoutSync workoutsync;
+    ProgressBar progress;
+    int breaktime;
+    Thread t;
+    int z;
+    TextView breakview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
+        // to-do: Name des geladenen Workouts dynamisch als ActionBar Title setzen
         getActionBar().setTitle("Workout");
 
         cancelworkoutbutton = findViewById(R.id.workoutabbrechenButton);
         endworkoutbutton = findViewById(R.id.workoutbeendenButton);
         lv = findViewById(R.id.ListExercise);
+        progress = findViewById(R.id.progressBar);
+        breakview = findViewById(R.id.textView);
         aktualisieren();
+        breaktime =-5;
+
+        //Vorbereitung für Toast
+        final Context context = getApplicationContext();
+        final int duration = Toast.LENGTH_SHORT;
+        final CharSequence text = "BREAK";
+
+        //Progressbar wird je nach Pausenzeit im Sekundentakt angepasst und schmeißt am Ende Toast
+        t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                z++;
+                                if (z < breaktime) {
+                                    progress.setProgress(z);
+                                    breakview.setText(""+z+"/"+breaktime);
+                                }
+                                else if (z == breaktime) {
+                                    Toast toast = Toast.makeText(context, text, duration);
+                                    toast.show();
+                                    progress.setProgress(z);
+                                    breakview.setText(""+z+"/"+breaktime);
+                                    //ProgressBar wird rot
+                                    progress.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                                }
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+        t.start();
     }
+
     public void aktualisieren() {
         workoutsync = new WorkoutSync(this);
         workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=5630742793027584");
@@ -97,6 +147,13 @@ public class WorkoutActivity extends Activity {
                         if (i > 0) {
                             if (!areDrawablesIdentical(view.getBackground(),ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttonred))){
                                 i--;
+                            } else {
+                                //Pausenzeit der aktuellen Übung auslesen, den Maximalwert der ProgressBar
+                                // anpassen und Farbe auf Grün setzen
+                                breaktime = getItem(position).getPausenzeit();
+                                progress.setMax(breaktime);
+                                z = 0;
+                                progress.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
                             }
                             view.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttongreen));
                         }else{
@@ -156,17 +213,17 @@ public class WorkoutActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Wir prüfen, ob Menü-Element mit der ID "action_daten_aktualisieren"
-        // ausgewählt wurde und geben eine Meldung aus
+        // Wir prüfen, ob Menü-Element mit der ID "overview"
+        // ausgewählt wurde und springen dann auf den "Übersicht"-Screen
         int id = item.getItemId();
         if (id == R.id.overview) {
-            changescreen();
+            changescreen(cancelworkoutbutton);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void changescreen() {
+    public void changescreen(View aView) {
         Intent intent0 = new Intent(this, MainActivity.class);
         startActivity(intent0);
     }
