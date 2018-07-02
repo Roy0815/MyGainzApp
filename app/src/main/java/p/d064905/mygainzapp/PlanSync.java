@@ -1,6 +1,7 @@
 package p.d064905.mygainzapp;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,23 +25,23 @@ import java.util.List;
 
 public class PlanSync extends AsyncTask<String,Integer,String> {
 
-    TextView AusgabeA;
-    ListView AusgabeD;
+    MainActivity Activity;
     String Name;
-    Boolean Active;
-    ArrayAdapter<Plan> mAdapter;
-    ArrayList<Plan> mArray;
+    String Active;
+    ArrayList<Plan> pArray;
+    ArrayList<Plan> wArray;
 
-    public PlanSync(TextView v, ListView w){
-        AusgabeA= v;
-        AusgabeD=w;
-
+    public PlanSync(MainActivity m){
+        Activity =m;
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        mArray = new ArrayList<>();
+
+        pArray = new ArrayList<>();
+        wArray = new ArrayList<>();
+
         try {
             JSONArray result = new JSONArray(s);
             JSONObject message;
@@ -48,21 +49,22 @@ public class PlanSync extends AsyncTask<String,Integer,String> {
                 message = result.getJSONObject(i);
 
                 Name = message.getString("name");
-                Active = message.getBoolean("active");
-                if (Active=true){
-                    AusgabeA.setText(Name);
+                Active = message.getString("active");
+
+                if (Active.equals("true")){
+                    wArray.add(new Plan(Name,true));
+                    System.out.print(Name);
                 }
-                if (Active=false){
-                    mArray.add(new Plan(Name,Active));
+               if (Active.equals("false")){
+                    pArray.add(new Plan(Name,false));
+                    System.out.print(Name);
                 }
             }
-           //Hier muss noch was angepasst werden   mAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mArray);
-            AusgabeD.setAdapter(mAdapter);
-
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Activity.fillList(pArray,wArray);
 
     }
 

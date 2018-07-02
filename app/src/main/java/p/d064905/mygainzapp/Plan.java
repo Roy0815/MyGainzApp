@@ -5,7 +5,7 @@ public class Plan {
         Boolean PlanActive;
         String PlanName;
 
-        public Plan (String aPlanName, Boolean aPlanActive){
+        public Plan (String aPlanName,Boolean aPlanActive){
 
 
             PlanName= aPlanName;
