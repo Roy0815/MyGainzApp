@@ -114,16 +114,16 @@ public class WorkoutActivity extends Activity {
 
                 switch (getItem(position).saetze) {
                     case 1:
-                        holder.btn2.setEnabled(false);
+                        holder.btn2.setVisibility(View.INVISIBLE);
                         holder.btn2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttongreen));
                     case 2:
-                        holder.btn3.setEnabled(false);
+                        holder.btn3.setVisibility(View.INVISIBLE);
                         holder.btn3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttongreen));
                     case 3:
-                        holder.btn4.setEnabled(false);
+                        holder.btn4.setVisibility(View.INVISIBLE);
                         holder.btn4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttongreen));
                     case 4:
-                        holder.btn5.setEnabled(false);
+                        holder.btn5.setVisibility(View.INVISIBLE);
                         holder.btn5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttongreen));
                         break;
                 }
