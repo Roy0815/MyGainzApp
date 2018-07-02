@@ -68,38 +68,49 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         wActive.setAdapter(Adapter2);
 
         wDeactivated.setOnItemClickListener(this);
+        wActive.setOnItemClickListener(this);
 
     }
 
     //Auswahl eines deaktivierten Plans
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int Position, long l) {
-        final Plan Ausgewaehlt = Adapter1.getItem(Position);
+        final Plan AusgewaehltD = Adapter1.getItem(Position);
+        final Plan AusgewaehltA = Adapter2.getItem(Position);
 
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(this);
+        if (AusgewaehltD.PlanActive=false)
+        {
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setTitle("Plan Aktivieren")
+                    .setMessage("Möchtest du diesen Plan auf aktiv setzen?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Hier wird der Plan auf aktiv gesetzt und der alte Plan deaktiviert und danach geupdated
+
+                            UpdateDB(AusgewaehltD);
+                            RefreshDB();
+
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
-        builder.setTitle("Plan Aktivieren")
-                .setMessage("Möchtest du diesen Plan auf aktiv setzen?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Hier wird der Plan auf aktiv gesetzt und der alte Plan deaktiviert und danach geupdated
-
-                        UpdateDB(Ausgewaehlt);
-                        RefreshDB();
-
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        else if (AusgewaehltA.PlanActive=true)
+        {
+            Intent intent2 = new Intent(this, WorkoutActivity.class);
+            intent2.putExtra("id",AusgewaehltA.ID);
+            startActivity(intent2);
+        }
     }
 
     public void UpdateDB(Plan p) {
@@ -120,10 +131,5 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.popupmenu, menu);
         return true;
-    }
-
-    public void changescreen(View aView) {
-        Intent intent2 = new Intent(this, WorkoutActivity.class);
-        startActivity(intent2);
     }
 }
