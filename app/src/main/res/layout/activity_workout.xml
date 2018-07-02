@@ -8,22 +8,18 @@
     tools:layout_editor_absoluteY="81dp">
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <ListView
+        android:id="@+id/ListExercise"
         android:layout_width="0dp"
-        android:layout_height="380dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/workoutabbrechenButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -33,11 +29,9 @@
         android:layout_marginBottom="13dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="29dp"
         app:layout_constraintBottom_toTopOf="@+id/workoutabbrechenButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/workoutabbrechenButton"
@@ -47,7 +41,8 @@
         android:layout_marginStart="8dp"
         android:text="Workout abbrechen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
 
     <Button
         android:id="@+id/workoutbeendenButton"

@@ -18,7 +18,7 @@ public class Uebung {
         this.saetze = saetze;
         this.pausenzeit = pausenzeit;
         this.steigerung = steigerung;
-        System.out.println("Übung " +name + "wurde erstellt.");
+        System.out.println("Übung " +name + gewicht + reps + saetze +pausenzeit+ " wurde erstellt.");
     }
 
     public int getId() {
