@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -22,10 +23,9 @@ import java.util.ArrayList;
 import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
-
-    ListView wActive;
-    ArrayList<Plan>  mArray;
-    ArrayAdapter<Plan>  mAdapter;
+    TextView wActive;
+    ListView wDeactivated;
+    PlanSync Ps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         setContentView(R.layout.activity_main);
 
         wActive = findViewById(R.id.AW);
-        mArray = new ArrayList<>();
-        mAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mArray);
-        wActive.setAdapter(mAdapter);
-        wActive.setOnItemClickListener(this);
+        wDeactivated= findViewById(R.id.DW);
+        onRefresh();
+    }
 
+    public void onRefresh() {
+        //Aufruf der DB für die Aktiven und Deaktivierten Pläne
+        Ps = new PlanSync(wActive,wDeactivated);
+        Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");
     }
 
     //PopUp Menü in Action Bar reinladen als 3 Menüpunkte oben rechts
