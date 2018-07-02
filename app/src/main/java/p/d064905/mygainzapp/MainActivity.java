@@ -22,10 +22,13 @@ import java.util.ArrayList;
 
 import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
-    TextView wActive;
+public class MainActivity extends Activity  {
+    ListView wActive;
     ListView wDeactivated;
     PlanSync Ps;
+    ArrayAdapter<Plan> Adapter1;
+    ArrayAdapter<Plan> Adapter2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         wActive = findViewById(R.id.AW);
         wDeactivated= findViewById(R.id.DW);
-        onRefresh();
+        RefreshDB();
     }
 
-    public void onRefresh() {
-        //Aufruf der DB für die Aktiven und Deaktivierten Pläne
-        Ps = new PlanSync(wActive,wDeactivated);
+    //Funktion für die Listausgabe aus PlanSync
+    public void fillList(ArrayList<Plan> pArray,ArrayList<Plan> wArray){
+
+        Adapter1 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,pArray);
+        wDeactivated.setAdapter(Adapter1);
+
+        Adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,wArray);
+        wActive.setAdapter(Adapter2);
+
+    }
+    //Aufruf der DB für die Aktiven und Deaktivierten Pläne
+    public void RefreshDB() {
+        Ps = new PlanSync(this);
         Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");
     }
 
@@ -49,11 +62,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.popupmenu, menu);
         return true;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //onclick Workout
     }
 
     public void changescreen(View aView) {
