@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
     //Aufruf der DB für die Aktiven und Deaktivierten Pläne
     public void RefreshDB() {
         Ps = new PlanSync(this);
+        
         Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");
     }
 
