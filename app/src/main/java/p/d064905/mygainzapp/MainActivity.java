@@ -1,30 +1,19 @@
 package p.d064905.mygainzapp;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.appwidget.AppWidgetManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
-
-import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
 
 public class MainActivity extends Activity {
     ListView wActive;

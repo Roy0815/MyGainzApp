@@ -13,11 +13,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class WorkoutSync extends AsyncTask<String, Integer, String> {
+public class ExerciseSync extends AsyncTask<String, Integer, String> {
 
-    WorkoutActivity WA;
+    ExerciseActivity WA;
 
-    public WorkoutSync(WorkoutActivity wa) {
+    public ExerciseSync(ExerciseActivity wa) {
         WA = wa;
     }
 
@@ -44,16 +44,19 @@ public class WorkoutSync extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Workout w = null;
-        ArrayList<Workout> ALu = new ArrayList<Workout>();
+        System.out.println("START ONPOSTEXE: " + s);
+        String chats = "";
+        Uebung u = null;
+        ArrayList<Uebung> ALu = new ArrayList<>();
         try {
             JSONArray result = new JSONArray(s);
             JSONObject workout;
             for (int i = 0; i < result.length(); i++) {
                 workout = result.getJSONObject(i);
 
-                w = new Workout(workout.getString("name"), workout.getLong("id"), workout.getString("planKey"));
-                ALu.add(w);
+                u = new Uebung(workout.getInt("id"), workout.getString("name"), Integer.parseInt(workout.getString("weight")), Integer.parseInt(workout.getString("repititions")), Integer.parseInt(workout.getString("sets")), Integer.parseInt(workout.getString("break")), Integer.parseInt(workout.getString("increase")));
+                System.out.println(workout.getString("name"));
+                ALu.add(u);
             }
         } catch (JSONException e) {
             e.printStackTrace();
