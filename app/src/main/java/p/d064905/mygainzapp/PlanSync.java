@@ -28,8 +28,10 @@ public class PlanSync extends AsyncTask<String,Integer,String> {
     MainActivity Activity;
     String Name;
     String Active;
+    Long ID;
     ArrayList<Plan> pArray;
     ArrayList<Plan> wArray;
+
 
     public PlanSync(MainActivity m){
         Activity =m;
@@ -50,14 +52,14 @@ public class PlanSync extends AsyncTask<String,Integer,String> {
 
                 Name = message.getString("name");
                 Active = message.getString("active");
+                ID= message.getLong("id");
+                System.out.println(Name+" "+ID+" "+Active);
 
                 if (Active.equals("true")){
-                    wArray.add(new Plan(Name,true));
-                    System.out.print(Name);
+                    wArray.add(new Plan(Name,true,ID));
                 }
                if (Active.equals("false")){
-                    pArray.add(new Plan(Name,false));
-                    System.out.print(Name);
+                    pArray.add(new Plan(Name,false,ID));
                 }
             }
 
