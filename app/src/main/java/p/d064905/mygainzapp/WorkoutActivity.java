@@ -60,7 +60,6 @@ public class WorkoutActivity extends Activity {
         lv = findViewById(R.id.ListExercise);
         progress = findViewById(R.id.progressBar);
         breakview = findViewById(R.id.textView);
-        aktualisieren();
         breaktime =-5;
 
         //Vorbereitung für Toast
@@ -71,6 +70,8 @@ public class WorkoutActivity extends Activity {
         intent1 = getIntent();
         workoutid = intent1.getStringExtra("id");
         workoutname = intent1.getStringExtra("name");
+
+        aktualisieren();
 
         getActionBar().setTitle(workoutname);
 
