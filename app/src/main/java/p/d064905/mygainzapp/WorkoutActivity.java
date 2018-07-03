@@ -98,7 +98,7 @@ public class WorkoutActivity extends Activity {
                                     progress.setProgress(z);
                                     breakview.setText(""+z+"/"+breaktime);
                                     //ProgressBar wird rot
-                                    progress.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                                    progress.getProgressDrawable().setColorFilter(Color.parseColor("#ffb300"), PorterDuff.Mode.SRC_IN);
                                 }else if (breaktime != -5){
                                     breakview.setText(""+z+"/"+breaktime);
                                 }
@@ -177,12 +177,14 @@ public class WorkoutActivity extends Activity {
                                 breaktime = getItem(position).getPausenzeit();
                                 progress.setMax(breaktime);
                                 z = 0;
-                                progress.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+                                progress.getProgressDrawable().setColorFilter(Color.parseColor("#304ffe"), PorterDuff.Mode.SRC_IN);
                             }
                             view.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttongreen));
+                            ((Button) view).setTextColor(Color.parseColor("#fafafa"));
                         }else{
                             i = getItem(position).reps;
                             view.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.roundedbuttonred));
+                            ((Button) view).setTextColor(Color.parseColor("#000000"));
                         }
                         ((Button) view).setText(Integer.toString(i));
                     }
