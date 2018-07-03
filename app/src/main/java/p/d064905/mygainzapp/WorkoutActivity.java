@@ -53,7 +53,9 @@ public class WorkoutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
+        //Standardwerte, falls Intent Übergabe nicht funktioniert
         workoutname = "Workout";
+        workoutid = "5636953047302144";
 
         cancelworkoutbutton = findViewById(R.id.workoutabbrechenButton);
         endworkoutbutton = findViewById(R.id.workoutbeendenButton);
@@ -71,7 +73,12 @@ public class WorkoutActivity extends Activity {
         workoutid = intent1.getStringExtra("id");
         workoutname = intent1.getStringExtra("name");
 
+        System.out.println("Workoutid lautet: " +workoutid);
+        System.out.println("Workoutname ist: " +workoutname);
+
         aktualisieren();
+
+        System.out.println("Aktualisieren startet");
 
         getActionBar().setTitle(workoutname);
 
