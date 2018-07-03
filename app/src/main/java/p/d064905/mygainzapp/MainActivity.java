@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 import static android.support.v4.view.WindowCompat.FEATURE_ACTION_BAR;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+public class MainActivity extends Activity {
     ListView wActive;
     ListView wDeactivated;
     PlanSync Ps;
@@ -51,6 +51,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     //Aufruf der DB für die Aktiven und Deaktivierten Pläne
     public void RefreshDB() {
         Ps = new PlanSync(this);
+        
         Ps.execute("https://mygainzapp.appspot.com/gainzapp/plans");
     }
 
@@ -63,23 +64,44 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Adapter1 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,pArray);
         wDeactivated.setAdapter(Adapter1);
 
+        wDeactivated.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3)
+            {
+                Plan Ausgewaehlt2 = (Plan)adapter.getItemAtPosition(position);
+                SwitchPlans(Ausgewaehlt2);
+            }
+        });
+
         //Aktivierter Plan ausgeben
         Adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,wArray);
         wActive.setAdapter(Adapter2);
 
-        wDeactivated.setOnItemClickListener(this);
-        wActive.setOnItemClickListener(this);
+        wActive.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3)
+            {
+                Plan Ausgewaehlt = (Plan)adapter.getItemAtPosition(position);
+                SwitchSession(Ausgewaehlt);
+            }
+        });
 
     }
 
-    //Auswahl eines deaktivierten Plans
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int Position, long l) {
-        final Plan AusgewaehltD = Adapter1.getItem(Position);
-        final Plan AusgewaehltA = Adapter2.getItem(Position);
+    //Click auf aktives Workout
+    public void SwitchSession(Plan p) {
+        Intent intent2 = new Intent(this, WorkoutActivity.class);
+        String IDübergabe =Long.toString(p.ID);
+        intent2.putExtra("id",IDübergabe);
+        intent2.putExtra("name",p.PlanName);
+        startActivity(intent2);
+    }
 
-        if (AusgewaehltD.PlanActive=false)
-        {
+    //Deaktivierten Plan Aktivieren
+    public void SwitchPlans(Plan p) {
+            final Plan P =p;
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
@@ -92,7 +114,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                         public void onClick(DialogInterface dialog, int which) {
                             //Hier wird der Plan auf aktiv gesetzt und der alte Plan deaktiviert und danach geupdated
 
-                            UpdateDB(AusgewaehltD);
+                            UpdateDB(P);
                             RefreshDB();
 
                         }
@@ -104,23 +126,16 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-        }
-        else if (AusgewaehltA.PlanActive=true)
-        {
-            Intent intent2 = new Intent(this, WorkoutActivity.class);
-            intent2.putExtra("id",AusgewaehltA.ID);
-            startActivity(intent2);
-        }
     }
 
     public void UpdateDB(Plan p) {
         //Neuen Plan Aktiv setzen
-        System.out.println(p.ID+" "+p.PlanActive+"wird in der DB aktiviert");
+        System.out.println(p.ID+" "+p.PlanActive+" wird in der DB aktiviert");
         As = new ActiveSync(p.ID,this,p.PlanActive);
         As.execute();
 
         //Alten Plan Deaktivieren
-        System.out.println(ActivePlan.ID+" "+ActivePlan.PlanActive+"wird in der DB deaktiviert");
+        System.out.println(ActivePlan.ID+" "+ActivePlan.PlanActive+" wird in der DB deaktiviert");
         As = new ActiveSync(ActivePlan.ID,this,ActivePlan.PlanActive);
         As.execute();
         }
