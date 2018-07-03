@@ -11,6 +11,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +20,10 @@ public class ActiveSync extends AsyncTask<String,Integer,String> {
     String Plan;
     String Active;
     RequestQueue mRequestQueue;
-    Context MainContext;
+    MainActivity MainContext;
 
 
-    public ActiveSync(Long id, Context c,Boolean a){
+    public ActiveSync(Long id, MainActivity c,Boolean a){
         Plan = Long.toString(id);
         MainContext = c;
         Active =Boolean.toString(a);
@@ -42,6 +44,11 @@ public class ActiveSync extends AsyncTask<String,Integer,String> {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
+                        System.out.println(Active);
+                        if (Active.equals("false")){
+                            MainContext.RefreshDB();
+                            System.out.println("update");
+                        }
                     }
                 },
                 new Response.ErrorListener()
@@ -72,8 +79,6 @@ public class ActiveSync extends AsyncTask<String,Integer,String> {
         };
 
         mRequestQueue.add(putRequest);
-
-
     }
 
     @Override

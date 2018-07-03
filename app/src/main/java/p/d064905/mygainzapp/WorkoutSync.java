@@ -45,6 +45,7 @@ public class WorkoutSync extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        System.out.println("START ONPOSTEXE: " + s);
         String chats = "";
         Uebung u = null;
         ArrayList<Uebung> ALu = new ArrayList<>();
@@ -55,6 +56,7 @@ public class WorkoutSync extends AsyncTask<String, Integer, String> {
                 workout = result.getJSONObject(i);
 
                 u = new Uebung(workout.getInt("id"), workout.getString("name"), Integer.parseInt(workout.getString("weight")), Integer.parseInt(workout.getString("repititions")), Integer.parseInt(workout.getString("sets")), Integer.parseInt(workout.getString("break")), Integer.parseInt(workout.getString("increase")));
+                System.out.println(workout.getString("name"));
                 ALu.add(u);
             }
         } catch (JSONException e) {

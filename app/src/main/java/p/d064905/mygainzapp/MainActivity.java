@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
     PlanSync Ps;
     ActiveSync As;
     Plan ActivePlan;
+    ArrayList<Plan> ALactive;
+    ArrayList<Plan> ALpassive;
     ArrayAdapter<Plan> Adapter1;
     ArrayAdapter<Plan> Adapter2;
 
@@ -129,14 +131,14 @@ public class MainActivity extends Activity {
     }
 
     public void UpdateDB(Plan p) {
-        //Neuen Plan Aktiv setzen
-        System.out.println(p.ID+" "+p.PlanActive+" wird in der DB aktiviert");
-        As = new ActiveSync(p.ID,this,p.PlanActive);
-        As.execute();
-
         //Alten Plan Deaktivieren
         System.out.println(ActivePlan.ID+" "+ActivePlan.PlanActive+" wird in der DB deaktiviert");
         As = new ActiveSync(ActivePlan.ID,this,ActivePlan.PlanActive);
+        As.execute();
+
+        //Neuen Plan Aktiv setzen
+        System.out.println(p.ID+" "+p.PlanActive+" wird in der DB aktiviert");
+        As = new ActiveSync(p.ID,this,p.PlanActive);
         As.execute();
         }
 

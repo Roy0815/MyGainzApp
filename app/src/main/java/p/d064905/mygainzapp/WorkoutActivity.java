@@ -67,18 +67,13 @@ public class WorkoutActivity extends Activity {
         //Vorbereitung für Toast
         final Context context = getApplicationContext();
         final int duration = Toast.LENGTH_SHORT;
-        final CharSequence text = "BREAK";
+        final CharSequence text = "Break is over.";
 
         intent1 = getIntent();
         workoutid = intent1.getStringExtra("id");
         workoutname = intent1.getStringExtra("name");
 
-        System.out.println("Workoutid lautet: " +workoutid);
-        System.out.println("Workoutname ist: " +workoutname);
-
         aktualisieren();
-
-        System.out.println("Aktualisieren startet");
 
         getActionBar().setTitle(workoutname);
 
@@ -104,6 +99,8 @@ public class WorkoutActivity extends Activity {
                                     breakview.setText(""+z+"/"+breaktime);
                                     //ProgressBar wird rot
                                     progress.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                                }else if (breaktime != -5){
+                                    breakview.setText(""+z+"/"+breaktime);
                                 }
                             }
                         });
@@ -116,11 +113,18 @@ public class WorkoutActivity extends Activity {
     }
 
     public void aktualisieren() {
-        workoutsync = new WorkoutSync(this);
-        try {
-            workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=" + URLEncoder.encode(workoutid, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (workoutid.equals("5636953047302144")) {
+            workoutsync = new WorkoutSync(this);
+            try {
+                workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=" + URLEncoder.encode("5630742793027584", "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }else{
+            ArrayList<Uebung> empty = new ArrayList<Uebung>();
+            Uebung uebungEmpty = new Uebung(123, "Für diesen Plan sind noch keine Workouts vorhanden", 0, 0, 1, 100,2);
+            empty.add(uebungEmpty);
+            fillList(empty);
         }
     }
 
