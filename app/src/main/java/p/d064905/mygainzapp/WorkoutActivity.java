@@ -44,14 +44,16 @@ public class WorkoutActivity extends Activity {
     Thread t;
     int z;
     TextView breakview;
+    Intent intent1;
+    String workoutid;
+    String workoutname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
-        // to-do: Name des geladenen Workouts dynamisch als ActionBar Title setzen
-        getActionBar().setTitle("Workout");
+        workoutname = "Workout";
 
         cancelworkoutbutton = findViewById(R.id.workoutabbrechenButton);
         endworkoutbutton = findViewById(R.id.workoutbeendenButton);
@@ -65,6 +67,12 @@ public class WorkoutActivity extends Activity {
         final Context context = getApplicationContext();
         final int duration = Toast.LENGTH_SHORT;
         final CharSequence text = "BREAK";
+
+        intent1 = getIntent();
+        workoutid = intent1.getStringExtra("id");
+        workoutname = intent1.getStringExtra("name");
+
+        getActionBar().setTitle(workoutname);
 
         //Progressbar wird je nach Pausenzeit im Sekundentakt angepasst und schmeißt am Ende Toast
         t = new Thread() {
@@ -101,7 +109,11 @@ public class WorkoutActivity extends Activity {
 
     public void aktualisieren() {
         workoutsync = new WorkoutSync(this);
-        workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=5630742793027584");
+        try {
+            workoutsync.execute("https://mygainzapp.appspot.com/gainzapp/exercises?workout=" + URLEncoder.encode(workoutid, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     public void fillList(ArrayList<Uebung> ALu){
