@@ -250,8 +250,9 @@ public class WorkoutActivity extends Activity {
     }
 
     public void changescreen(View aView) {
-        Intent intent0 = new Intent(this, MainActivity.class);
-        startActivity(intent0);
+        //Intent intent0 = new Intent(this, MainActivity.class);
+        //startActivity(intent0);
+        finish();
     }
     public static boolean areDrawablesIdentical(Drawable drawableA, Drawable drawableB) {
         Drawable.ConstantState stateA = drawableA.getConstantState();
